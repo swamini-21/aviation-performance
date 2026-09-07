@@ -171,6 +171,88 @@ Both sources are curated federal datasets, not scraped data. The hard rules are 
 
 Cancellations reach 5.99%, more than triple any other year, while average arrival delay is −4.99 minutes — the only negative in the 22-year series. Flights arrived on average five minutes early into empty airports. Reporting airports rose to 367 while volume fell 35%.
 
+## Phase 3 — Gold Layer
+
+**Purpose**
+
+Silver produces one clean, conformed table at flight grain — but a single
+flat table serves BI dashboards and a natural-language query agent poorly
+for different reasons. Dashboards run the same handful of aggregate queries
+repeatedly and need speed; Genie needs to answer questions no one
+anticipated, which requires atomic grain to compose on the fly. Gold
+resolves this with a hybrid design: one curated atomic-grain fact table for
+Genie, and two pre-aggregated summary tables at different grains for
+dashboard performance.
+
+**Design decisions**
+
+- **Hybrid atomic + aggregate modeling.** `gold.fct_flights` stays at
+  flight grain — curated and renamed for business use, but not
+  pre-aggregated — so Genie can compose arbitrary `GROUP BY`/`SUM`/`AVG`
+  queries without being limited to groupings decided in advance.
+  `gold.agg_daily_carrier_route_performance` (day × carrier × route) and
+  `gold.agg_monthly_carrier_performance` (month × carrier) serve dashboard
+  trend views without scanning 146.7M rows per refresh.
+- **Star schema dimensions** — `dim_date`, `dim_carrier`, `dim_airport` —
+  join to `fct_flights` on natural keys, attaching business-friendly names
+  and hierarchies without duplicating them across every fact row.
+- **Null vs. zero, made explicit in aggregates.** The five delay-cause
+  columns (`carrier_delay_min`, `weather_delay_min`, etc.) are legitimately
+  `NULL` at flight grain — populated only for delays of 15+ minutes, per
+  BTS convention. At flight grain that's correct. But `SUM()` over an
+  all-`NULL` group also returns `NULL`, which in an *aggregate* table reads
+  as "unknown" when it should read as "zero delay-cause minutes occurred."
+  Both aggregate tables `COALESCE` these sums to `0` to avoid that
+  ambiguity.
+- **`dim_carrier` is time-bounded, not a flat lookup**, to correctly handle
+  a genuine airline-code reuse case (see Findings below). Most carrier
+  codes get one open-ended row; `OH` gets two, and joins to `fct_flights`
+  require `flight_date BETWEEN effective_start AND effective_end` rather
+  than a plain equi-join.
+- **`dim_airport` is a role-playing dimension** — one physical table keyed
+  by airport code, joined twice (aliased) wherever a query needs both an
+  origin and a destination name in the same row.
+
+**Findings**
+
+- Carrier code reuse (`OH`): Comair → dormant → PSA Airlines. Year-range
+  analysis showed `OH` continuously present 2004–2026 with no gap, which
+  looked at first like one continuously-operating carrier. Cross-checking
+  against `DOT_ID_Reporting_Airline` (BTS's permanent carrier identifier,
+  available 2009+) proved otherwise: two distinct DOT IDs (`20397`,
+  `20417`) share the `OH` code. Digging into the year-by-year breakdown
+  showed the code was actually dormant for seven years (last used by
+  Comair in 2010, reassigned to PSA Airlines starting 2018) — not a
+  continuous handoff. `dim_carrier` models this with two time-bounded rows
+  rather than picking one name and silently misattributing years of
+  history to the wrong airline.
+- **17 airport codes exist only in pre-2009 data.** The 2004–2008 source
+  has no city/state/ID metadata, only bare 3-letter codes. Cross-checked
+  against the 2009+ source, 17 codes (e.g. `DUT`, `LNY`, `MKK`, `CBM`,
+  `RCA`) never reappear — consistent with small regional airports and
+  military airfields that stopped being served, or dropped below
+  reporting thresholds, after 2008. Rather than leave these with `NULL`
+  metadata, they were manually researched and enriched, flagged with
+  `data_coverage = 'pre_2009_only'` so the gap stays visible rather than
+  silently patched over.
+
+  **Tables built and reconciled**
+
+| Table | Grain | Rows |
+|---|---|---|
+| `gold.fct_flights` | flight | 146,715,805 |
+| `gold.dim_date` | day | 8,401 |
+| `gold.dim_carrier` | carrier code (time-bounded) | 29 |
+| `gold.dim_airport` | airport code | 426 |
+| `gold.agg_daily_carrier_route_performance` | day × carrier × route | 52,154,788 |
+| `gold.agg_monthly_carrier_performance` | month × carrier | 4,421 |
+
+`gold.fct_flights` reconciles exactly against `silver.flights`
+(146,715,805 rows both, including a year-by-year check across all 8
+backfill batch boundaries). Both aggregate tables reconcile exactly
+against `gold.fct_flights` on flight counts, cancellations, diversions,
+and delay-cause minute sums.
+
 ## Known limitations
 
 Historical data covers only 2004–2008, not the full 1987–2008 available in the built-in dataset — scoped down to fit Free Edition's compute/storage quota. An intentional, documented gap rather than a continuous 1987–2026 timeline.
@@ -185,11 +267,20 @@ Times are local, not UTC. Neither source supplies a timezone, so scheduled_depar
 
 Carrier codes are not stable identifiers across 22 years — codes are reused and carriers merge.
 
+- Carrier identity resolution depends on data only available 2009+.
+  `DOT_ID_Reporting_Airline` — the permanent key used to prove the `OH`
+  code-reuse case — doesn't exist in the 2004–2008 historical source. The
+  pre-2009 portion of the `OH` fix relies on continuity-of-operation
+  reasoning (no DOT ID to confirm against), not a hard key match.
+- 17 airport records in `dim_airport` are manually curated, not
+  pipeline-derived — sourced from external research rather than BTS data,
+  since these airports don't appear in the 2009+ source at all.
+
 ## Roadmap
 
 - [x] **Phase 1 - Data Collection: Bronze** ingestion for both sources, verified and deduplicated ✓
 - [ ] **Phase 2 - Silver**: Schema conformance, unified 146.7M-row table, two-tier data quality ✓
-- [ ] **Phase 3 - Gold:** Aggregated, dashboard-ready tables
+- [ ] **Phase 3 - Gold:** Aggregated, dashboard-ready tables ✓
 - [ ] **Phase 4 - AI/BI Dashboard:** Visual analytics on Gold tables
 - [ ] **Phase 5 - Genie:** Natural-language querying over the Gold layer
 - [ ] Extend toward a fuller DE stack (Airflow orchestration, dbt transformations) as a stretch goal
@@ -201,10 +292,11 @@ aviation-performance/
 ├── README.md
 ├── .gitignore
 ├── notebooks/
-│   ├── 01_bronze_ingestion.py
-│   ├── 02_silver_profiling.py
-│   ├── 03_silver_flights.py
-│   └── 03_silver_dq_investigation.py
+│   ├── 01_bronze_ingestion.ipynb
+│   ├── 02_silver_profiling.ipynb
+│   ├── 03_silver_flights.ipynb
+│   ├── 04_silver_dq_investigation.ipynb
+|   └── 05_gold_flights.ipynb
 ├── scripts/
 │   └── download_bts_ontime.py
 └── docs/
