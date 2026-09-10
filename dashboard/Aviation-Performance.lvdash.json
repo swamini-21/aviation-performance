@@ -1,0 +1,1937 @@
+{
+  "datasets": [
+    {
+      "name": "92534643",
+      "displayName": "mv_carrier_route_performance",
+      "asset_name": "airline_analytics.gold.mv_carrier_route_performance"
+    }
+  ],
+  "pages": [
+    {
+      "name": "336a50f8",
+      "displayName": "On-time overview",
+      "layout": [
+        {
+          "widget": {
+            "name": "total-flights",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "92534643",
+                  "fields": [
+                    {
+                      "name": "measure(total_flights)",
+                      "expression": "MEASURE(`total_flights`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "showDescription": false,
+                "headerAlignment": "center",
+                "title": {
+                  "value": "#### <span style=\"text-align:center;display:block\"><span style=\"font-weight: 500;\">Total Flights</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "style": {
+                "fontColor": {
+                  "dark": "#49A7F3"
+                }
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(total_flights)",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    },
+                    "significantFigures": {
+                      "type": "all"
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#426786"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "4fd73c2a",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "92534643",
+                  "fields": [
+                    {
+                      "name": "measure(on_time_dep_pct)",
+                      "expression": "MEASURE(`on_time_dep_pct`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "showDescription": false,
+                "headerAlignment": "center",
+                "title": {
+                  "value": "#### <span style=\"text-align:center;display:block\"><span style=\"font-weight:500\">On Time Departure </span></span>",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "style": {
+                "fontColor": {
+                  "dark": "#49A7F3"
+                }
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(on_time_dep_pct)",
+                  "format": {
+                    "type": "number-percent",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  },
+                  "style": {
+                    "fontSize": 36
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#426786"
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "0fa4b980",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "92534643",
+                  "fields": [
+                    {
+                      "name": "measure(cancellation_rate)",
+                      "expression": "MEASURE(`cancellation_rate`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "showDescription": false,
+                "title": {
+                  "value": "#### <span style=\"text-align:center;display:block\"><span style=\"font-weight:500\">Cancellation Rate</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "style": {
+                "fontColor": {
+                  "dark": "#49A7F3"
+                }
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(cancellation_rate)",
+                  "format": {
+                    "type": "number-percent",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#426786"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "7d9085c0",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "92534643",
+                  "fields": [
+                    {
+                      "name": "measure(on_time_arr_pct)",
+                      "expression": "MEASURE(`on_time_arr_pct`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "showDescription": false,
+                "title": {
+                  "value": "#### <span style=\"text-align:center;display:block\"><span style=\"font-weight:500\">On Time Arrival</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "style": {
+                "fontColor": {
+                  "dark": "#49A7F3"
+                }
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(on_time_arr_pct)",
+                  "format": {
+                    "type": "number-percent",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#426786"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "on-time-arrival-departure-percentage",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "92534643",
+                  "fields": [
+                    {
+                      "name": "monthly(flight_date)",
+                      "expression": "DATE_TRUNC(\"MONTH\", `flight_date`)"
+                    },
+                    {
+                      "name": "measure(on_time_arr_pct)",
+                      "expression": "MEASURE(`on_time_arr_pct`)"
+                    },
+                    {
+                      "name": "measure(on_time_dep_pct)",
+                      "expression": "MEASURE(`on_time_dep_pct`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"font-size: 14px;\">On Time Arrival & Departure Percentage over Time</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "monthly(flight_date)",
+                  "axis": {
+                    "hideGrid": true
+                  },
+                  "displayName": "Flight Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "fields": [
+                    {
+                      "fieldName": "measure(on_time_arr_pct)",
+                      "displayName": "Arrival"
+                    },
+                    {
+                      "fieldName": "measure(on_time_dep_pct)",
+                      "displayName": "Departure"
+                    }
+                  ],
+                  "axis": {
+                    "title": "Percentage"
+                  },
+                  "format": {
+                    "type": "number-percent",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  }
+                },
+                "label": {
+                  "show": false
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "delay-over-time-reasons",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "92534643",
+                  "fields": [
+                    {
+                      "name": "monthly(flight_date)",
+                      "expression": "DATE_TRUNC(\"MONTH\", `flight_date`)"
+                    },
+                    {
+                      "name": "measure(carrier_delay_min)",
+                      "expression": "MEASURE(`carrier_delay_min`)"
+                    },
+                    {
+                      "name": "measure(late_aircraft_delay_min)",
+                      "expression": "MEASURE(`late_aircraft_delay_min`)"
+                    },
+                    {
+                      "name": "measure(nas_delay_min)",
+                      "expression": "MEASURE(`nas_delay_min`)"
+                    },
+                    {
+                      "name": "measure(security_delay_min)",
+                      "expression": "MEASURE(`security_delay_min`)"
+                    },
+                    {
+                      "name": "measure(weather_delay_min)",
+                      "expression": "MEASURE(`weather_delay_min`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block\"><span style=\"font-size:14px;text-decoration:underline\">Delay (min) by Reasons Across Time</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "monthly(flight_date)",
+                  "axis": {
+                    "hideGrid": true
+                  },
+                  "displayName": "Flight Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "fields": [
+                    {
+                      "fieldName": "measure(carrier_delay_min)",
+                      "displayName": "Carrier"
+                    },
+                    {
+                      "fieldName": "measure(late_aircraft_delay_min)",
+                      "displayName": "Late Aircraft"
+                    },
+                    {
+                      "fieldName": "measure(nas_delay_min)",
+                      "displayName": "NAS"
+                    },
+                    {
+                      "fieldName": "measure(security_delay_min)",
+                      "displayName": "Security "
+                    },
+                    {
+                      "fieldName": "measure(weather_delay_min)",
+                      "displayName": "Weather"
+                    }
+                  ],
+                  "axis": {
+                    "hideGrid": false,
+                    "title": "Minutes"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 2,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "afe8fa57",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "92534643",
+                  "fields": [
+                    {
+                      "name": "measure(avg_dep_delay_min)",
+                      "expression": "MEASURE(`avg_dep_delay_min`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "showDescription": false,
+                "title": {
+                  "value": "#### <span style=\"text-align:center;display:block\">Avg Departure Delay (min)</span>",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "style": {
+                "fontColor": {
+                  "dark": "#49A7F3"
+                }
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(avg_dep_delay_min)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#426786"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "d7da1bcf",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "92534643",
+                  "fields": [
+                    {
+                      "name": "measure(diverted_flights)",
+                      "expression": "MEASURE(`diverted_flights`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "showDescription": false,
+                "title": {
+                  "value": "#### <span style=\"text-align:center;display:block\">Diverted Flights</span>",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "style": {
+                "fontColor": {
+                  "dark": "#49A7F3"
+                }
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(diverted_flights)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBorderColor": {
+                "dark": "#426786"
+              }
+            }
+          },
+          "position": {
+            "x": 10,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "cancellation-rate-over-time",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "92534643",
+                  "fields": [
+                    {
+                      "name": "monthly(flight_date)",
+                      "expression": "DATE_TRUNC(\"MONTH\", `flight_date`)"
+                    },
+                    {
+                      "name": "measure(cancellation_rate)",
+                      "expression": "MEASURE(`cancellation_rate`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"font-size: 14px;text-decoration: underline;\">Cancellation Rate Over Time</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "monthly(flight_date)",
+                  "axis": {
+                    "hideGrid": true
+                  },
+                  "displayName": "Flight Date",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(cancellation_rate)",
+                  "format": {
+                    "type": "number-percent",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  },
+                  "displayName": "Cancellation Rate",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 7,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "on-time-arrival-percentage-seasons",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "92534643",
+                  "fields": [
+                    {
+                      "name": "measure(on_time_arr_pct)",
+                      "expression": "MEASURE(`on_time_arr_pct`)"
+                    },
+                    {
+                      "name": "month",
+                      "expression": "`month`"
+                    },
+                    {
+                      "name": "year",
+                      "expression": "`year`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"font-size: 14px;text-decoration: underline;\">On Time Arrival Percentage Across Seasons</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "heatmap",
+              "encodings": {
+                "x": {
+                  "fieldName": "month",
+                  "displayName": "Month",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "year",
+                  "displayName": "Year",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "measure(on_time_arr_pct)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 7,
+            "width": 6,
+            "height": 5
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "ab53672a",
+      "displayName": "Global Filters",
+      "layout": [
+        {
+          "widget": {
+            "name": "year",
+            "queries": [
+              {
+                "name": "dashboards/01f1aae8b35811e9b7834d30e35802c3/datasets/01f1aae8ed0a1b48b6e471d8696ba000_yearly(flight_date)",
+                "query": {
+                  "datasetName": "92534643",
+                  "fields": [
+                    {
+                      "name": "yearly(flight_date)",
+                      "expression": "DATE_TRUNC(\"YEAR\", `flight_date`)"
+                    },
+                    {
+                      "name": "yearly(flight_date)_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Year",
+                  "fields": []
+                }
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "yearly(flight_date)",
+                    "displayName": "YEARLY(flight_date)",
+                    "queryName": "dashboards/01f1aae8b35811e9b7834d30e35802c3/datasets/01f1aae8ed0a1b48b6e471d8696ba000_yearly(flight_date)"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "quarter",
+            "queries": [
+              {
+                "name": "dashboards/01f1aae8b35811e9b7834d30e35802c3/datasets/01f1aae8ed0a1b48b6e471d8696ba000_quarter",
+                "query": {
+                  "datasetName": "92534643",
+                  "fields": [
+                    {
+                      "name": "quarter",
+                      "expression": "`quarter`"
+                    },
+                    {
+                      "name": "quarter_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Quarter",
+                  "fields": []
+                }
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "quarter",
+                    "queryName": "dashboards/01f1aae8b35811e9b7834d30e35802c3/datasets/01f1aae8ed0a1b48b6e471d8696ba000_quarter"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "month",
+            "queries": [
+              {
+                "name": "dashboards/01f1aae8b35811e9b7834d30e35802c3/datasets/01f1aae8ed0a1b48b6e471d8696ba000_month",
+                "query": {
+                  "datasetName": "92534643",
+                  "fields": [
+                    {
+                      "name": "month",
+                      "expression": "`month`"
+                    },
+                    {
+                      "name": "month_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Month",
+                  "fields": []
+                }
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "month",
+                    "queryName": "dashboards/01f1aae8b35811e9b7834d30e35802c3/datasets/01f1aae8ed0a1b48b6e471d8696ba000_month"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 4,
+            "width": 1,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "20bb2731",
+      "displayName": "Carrier Comparison",
+      "layout": [
+        {
+          "widget": {
+            "name": "on-time-arrival-percentage-by-carrier",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "92534643",
+                  "fields": [
+                    {
+                      "name": "measure(on_time_arr_pct)",
+                      "expression": "MEASURE(`on_time_arr_pct`)"
+                    },
+                    {
+                      "name": "carrier_name",
+                      "expression": "`carrier_name`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block\"><span style=\"font-size: 14px;text-decoration: underline;\">On Time Arrival Percentage by Carrier</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 1
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "measure(on_time_arr_pct)",
+                  "axis": {
+                    "title": "On Time Arrival %"
+                  },
+                  "format": {
+                    "type": "number-percent",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "carrier_name",
+                  "axis": {
+                    "hideLabels": false,
+                    "labelAngle": 0
+                  },
+                  "displayName": "Carrier Name",
+                  "scale": {
+                    "type": "categorical",
+                    "categorySize": {
+                      "type": "number-of-categories",
+                      "number": 10
+                    },
+                    "sort": {
+                      "by": "x-reversed"
+                    }
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 5,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "cancellation-rate-by-carrier-name",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "92534643",
+                  "fields": [
+                    {
+                      "name": "carrier_name",
+                      "expression": "`carrier_name`"
+                    },
+                    {
+                      "name": "measure(cancellation_rate)",
+                      "expression": "MEASURE(`cancellation_rate`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block\"><span style=\"font-size: 14px;text-decoration: underline;\">Cancellation Rate By Carrier Name </span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "carrier_name",
+                  "axis": {
+                    "labelAngle": 45
+                  },
+                  "displayName": "Carrier Name",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(cancellation_rate)",
+                  "format": {
+                    "type": "number-percent",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  },
+                  "axis": {
+                    "title": "Cancellation Rate",
+                    "labelAngle": 0
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 5,
+            "y": 0,
+            "width": 7,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "on-time-arrival-rate-vs-flight-volume-by-carrier",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "92534643",
+                  "fields": [
+                    {
+                      "name": "carrier_name",
+                      "expression": "`carrier_name`"
+                    },
+                    {
+                      "name": "measure(total_flights)",
+                      "expression": "MEASURE(`total_flights`)"
+                    },
+                    {
+                      "name": "measure(on_time_arr_pct)",
+                      "expression": "MEASURE(`on_time_arr_pct`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"font-size: 14px;text-decoration: underline;\">On Time Arrival Rate v/s Flight Volume By Carrier</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "mark": {
+                "opacity": 0.28,
+                "colors": [
+                  {
+                    "themeColorType": "selectionColor"
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              },
+              "widgetType": "scatter",
+              "encodings": {
+                "x": {
+                  "fieldName": "measure(total_flights)",
+                  "axis": {
+                    "title": "Total Flights"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(on_time_arr_pct)",
+                  "axis": {
+                    "title": "On Time Arrival %"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "size": {
+                  "fieldName": "measure(total_flights)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "extra": [
+                  {
+                    "fieldName": "carrier_name"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 5,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "key-metrics-per-carrier",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "92534643",
+                  "fields": [
+                    {
+                      "name": "carrier_name",
+                      "expression": "`carrier_name`"
+                    },
+                    {
+                      "name": "measure(total_flights)",
+                      "expression": "MEASURE(`total_flights`)"
+                    },
+                    {
+                      "name": "measure(on_time_dep_pct)",
+                      "expression": "MEASURE(`on_time_dep_pct`)"
+                    },
+                    {
+                      "name": "measure(on_time_arr_pct)",
+                      "expression": "MEASURE(`on_time_arr_pct`)"
+                    },
+                    {
+                      "name": "measure(cancellation_rate)",
+                      "expression": "MEASURE(`cancellation_rate`)"
+                    },
+                    {
+                      "name": "measure(avg_dep_delay_min)",
+                      "expression": "MEASURE(`avg_dep_delay_min`)"
+                    },
+                    {
+                      "name": "measure(avg_arr_delay_min)",
+                      "expression": "MEASURE(`avg_arr_delay_min`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"font-size: 14px;text-decoration: underline;\">Key Metrics Per Carrier</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "carrier_name",
+                    "displayName": "Carrier"
+                  },
+                  {
+                    "fieldName": "measure(total_flights)",
+                    "contentAlignment": "left",
+                    "format": {
+                      "type": "number-plain",
+                      "abbreviation": "none",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 0
+                      },
+                      "hideGroupSeparator": true
+                    },
+                    "displayName": "Total Flights"
+                  },
+                  {
+                    "fieldName": "measure(on_time_dep_pct)",
+                    "contentAlignment": "left",
+                    "format": {
+                      "type": "number-percent",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 2
+                      },
+                      "hideGroupSeparator": true
+                    },
+                    "displayName": "On Time Dep"
+                  },
+                  {
+                    "fieldName": "measure(on_time_arr_pct)",
+                    "format": {
+                      "type": "number-percent",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 2
+                      },
+                      "hideGroupSeparator": true
+                    },
+                    "contentAlignment": "left",
+                    "displayName": "On Time Arr"
+                  },
+                  {
+                    "fieldName": "measure(cancellation_rate)",
+                    "format": {
+                      "type": "number-percent",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 2
+                      },
+                      "hideGroupSeparator": true
+                    },
+                    "contentAlignment": "left",
+                    "displayName": "Cancellation Rate"
+                  },
+                  {
+                    "fieldName": "measure(avg_dep_delay_min)",
+                    "contentAlignment": "left",
+                    "displayName": "Avg Dep Delay (min)"
+                  },
+                  {
+                    "fieldName": "measure(avg_arr_delay_min)",
+                    "contentAlignment": "left",
+                    "displayName": "Avg Arr Delay (min)"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 5,
+            "y": 6,
+            "width": 7,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "06d4e727",
+      "displayName": "Route Analysis",
+      "layout": [
+        {
+          "widget": {
+            "name": "busiest-routes",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "92534643",
+                  "fields": [
+                    {
+                      "name": "measure(total_flights)",
+                      "expression": "MEASURE(`total_flights`)"
+                    },
+                    {
+                      "name": "route",
+                      "expression": "`route`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"font-size: 14px;\">Busiest Routes</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "measure(total_flights)",
+                  "axis": {
+                    "title": "Total Flights"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "route",
+                  "axis": {
+                    "title": "Routes"
+                  },
+                  "scale": {
+                    "type": "categorical",
+                    "categorySize": {
+                      "type": "number-of-categories",
+                      "number": 10
+                    },
+                    "sort": {
+                      "by": "x-reversed"
+                    }
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 5,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "0e055b6e",
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-single-select",
+              "encodings": {},
+              "frame": {
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 17,
+            "width": 4,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "best-on-time-routes",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "92534643",
+                  "fields": [
+                    {
+                      "name": "measure(on_time_arr_pct)",
+                      "expression": "MEASURE(`on_time_arr_pct`)"
+                    },
+                    {
+                      "name": "measure(total_flights)",
+                      "expression": "MEASURE(`total_flights`)"
+                    },
+                    {
+                      "name": "measure(on_time_arr_score)",
+                      "expression": "MEASURE(`on_time_arr_score`)"
+                    },
+                    {
+                      "name": "route",
+                      "expression": "`route`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"font-size: 14px;\">Best On-Time Routes</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "measure(on_time_arr_score)",
+                  "format": {
+                    "type": "number-percent",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  },
+                  "axis": {
+                    "title": "On Time Arrival %"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "route",
+                  "displayName": "Route",
+                  "scale": {
+                    "type": "categorical",
+                    "categorySize": {
+                      "type": "number-of-categories",
+                      "number": 10
+                    },
+                    "sort": {
+                      "by": "x-reversed"
+                    }
+                  }
+                },
+                "label": {
+                  "show": true
+                },
+                "extra": [
+                  {
+                    "fieldName": "measure(on_time_arr_pct)"
+                  },
+                  {
+                    "fieldName": "measure(total_flights)"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 5,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "worst-on-time-routes",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "92534643",
+                  "fields": [
+                    {
+                      "name": "measure(on_time_arr_pct)",
+                      "expression": "MEASURE(`on_time_arr_pct`)"
+                    },
+                    {
+                      "name": "measure(total_flights)",
+                      "expression": "MEASURE(`total_flights`)"
+                    },
+                    {
+                      "name": "measure(on_time_arr_score)",
+                      "expression": "MEASURE(`on_time_arr_score`)"
+                    },
+                    {
+                      "name": "route",
+                      "expression": "`route`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"font-size: 14px;\">Worst On-Time Routes</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "measure(on_time_arr_score)",
+                  "format": {
+                    "type": "number-percent",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  },
+                  "axis": {
+                    "title": "On Time Arrival %"
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "route",
+                  "displayName": "Route",
+                  "scale": {
+                    "type": "categorical",
+                    "categorySize": {
+                      "type": "number-of-categories",
+                      "number": 10
+                    },
+                    "sort": {
+                      "by": "x"
+                    }
+                  }
+                },
+                "label": {
+                  "show": true
+                },
+                "extra": [
+                  {
+                    "fieldName": "measure(on_time_arr_pct)"
+                  },
+                  {
+                    "fieldName": "measure(total_flights)"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 11,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "delay-by-total-distance",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "92534643",
+                  "fields": [
+                    {
+                      "name": "carrier_name",
+                      "expression": "`carrier_name`"
+                    },
+                    {
+                      "name": "measure(total_flights)",
+                      "expression": "MEASURE(`total_flights`)"
+                    },
+                    {
+                      "name": "measure(avg_distance_mi)",
+                      "expression": "MEASURE(`avg_distance_mi`)"
+                    },
+                    {
+                      "name": "measure(avg_arr_delay_min)",
+                      "expression": "MEASURE(`avg_arr_delay_min`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block\"><span style=\"font-size:14px\">Delay v/s Distance</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "scatter",
+              "encodings": {
+                "x": {
+                  "fieldName": "measure(avg_distance_mi)",
+                  "axis": {
+                    "title": "Distance (mi)"
+                  },
+                  "displayName": "Distance (mi)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(avg_arr_delay_min)",
+                  "axis": {
+                    "title": "Avg Arrival Delay (Min)",
+                    "hideGrid": false
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "size": {
+                  "fieldName": "measure(total_flights)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Total Flights"
+                },
+                "extra": [
+                  {
+                    "fieldName": "carrier_name"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 11,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "route-specific-metrics",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "92534643",
+                  "fields": [
+                    {
+                      "name": "route",
+                      "expression": "`route`"
+                    },
+                    {
+                      "name": "measure(total_flights)",
+                      "expression": "MEASURE(`total_flights`)"
+                    },
+                    {
+                      "name": "measure(on_time_arr_pct)",
+                      "expression": "MEASURE(`on_time_arr_pct`)"
+                    },
+                    {
+                      "name": "measure(cancellation_rate)",
+                      "expression": "MEASURE(`cancellation_rate`)"
+                    },
+                    {
+                      "name": "measure(avg_arr_delay_min)",
+                      "expression": "MEASURE(`avg_arr_delay_min`)"
+                    },
+                    {
+                      "name": "measure(avg_distance_mi)",
+                      "expression": "MEASURE(`avg_distance_mi`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"font-size: 14px;\">Route Specific Metrics</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "route",
+                    "displayName": "Route"
+                  },
+                  {
+                    "fieldName": "measure(total_flights)",
+                    "contentAlignment": "left",
+                    "displayName": "Total Flights"
+                  },
+                  {
+                    "fieldName": "measure(on_time_arr_pct)",
+                    "contentAlignment": "left",
+                    "format": {
+                      "type": "number-percent",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 2
+                      },
+                      "hideGroupSeparator": true
+                    },
+                    "displayName": "On Time Arrival %"
+                  },
+                  {
+                    "fieldName": "measure(cancellation_rate)",
+                    "contentAlignment": "left",
+                    "format": {
+                      "type": "number-percent",
+                      "decimalPlaces": {
+                        "type": "exact",
+                        "places": 2
+                      },
+                      "hideGroupSeparator": true
+                    },
+                    "displayName": "Cancellation Rate"
+                  },
+                  {
+                    "fieldName": "measure(avg_arr_delay_min)",
+                    "contentAlignment": "left",
+                    "displayName": "Avg Arrival Delay (min)"
+                  },
+                  {
+                    "fieldName": "measure(avg_distance_mi)",
+                    "contentAlignment": "left",
+                    "displayName": "Distance (mi)"
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 1,
+            "y": 0,
+            "width": 11,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "carrier",
+            "queries": [
+              {
+                "name": "dashboards/01f1aae8b35811e9b7834d30e35802c3/datasets/01f1aae8ed0a1b48b6e471d8696ba000_carrier_name",
+                "query": {
+                  "datasetName": "92534643",
+                  "fields": [
+                    {
+                      "name": "carrier_name",
+                      "expression": "`carrier_name`"
+                    },
+                    {
+                      "name": "carrier_name_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Carrier",
+                  "fields": []
+                }
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "carrier_name",
+                    "queryName": "dashboards/01f1aae8b35811e9b7834d30e35802c3/datasets/01f1aae8ed0a1b48b6e471d8696ba000_carrier_name"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "locale": "en-US",
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
