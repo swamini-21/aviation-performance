@@ -249,3 +249,57 @@ delay-cause minute sums.
 | `security_delay_min` | bigint | Sum of security delay minutes. Coalesced to `0`. |
 | `late_aircraft_delay_min` | bigint | Sum of late-aircraft delay minutes. Coalesced to `0`. |
 | `_gold_processed_at` | timestamp | Pipeline timestamp when this row was written. |
+
+
+## `gold.mv_carrier_route_performance` (Metric View)
+
+**Type:** Unity Catalog Metric View (semantic layer), defined via
+`CREATE VIEW ... WITH METRICS LANGUAGE YAML`. **Source:**
+`gold.agg_daily_carrier_route_performance`. **Purpose:** built for Phase 4
+AI/BI dashboards; designed so a future Genie space can query the same
+measure definitions without redefining KPIs from scratch.
+
+Joins `gold.dim_carrier` using the same time-bounded range join documented
+above, so `carrier_name` (unlike raw `carrier_code`) correctly separates
+the two airlines that have shared the `OH` code.
+
+### Dimensions
+
+| Dimension | Expression | Description |
+|---|---|---|
+| `flight_date` | `flight_date` | Daily grain |
+| `year` | `year(flight_date)` | |
+| `quarter` | `quarter(flight_date)` | |
+| `month` | `month(flight_date)` | |
+| `carrier_code` | `carrier_code` | Raw DOT reporting code; see `carrier_name` for a code-reuse-safe alternative |
+| `carrier_name` | `carrier.carrier_name` (joined) | Resolved via the time-bounded join to `dim_carrier`; use this, not `carrier_code`, for any per-airline grouping |
+| `origin` | `origin` | |
+| `dest` | `dest` | |
+| `route` | `route` | Concatenated origin-dest |
+
+### Measures
+
+| Measure | Expression | Notes |
+|---|---|---|
+| `total_flights` | `SUM(flight_count)` | |
+| `completed_flights` | `SUM(completed_count)` | |
+| `cancelled_flights` | `SUM(cancelled_count)` | |
+| `diverted_flights` | `SUM(diverted_count)` | |
+| `cancellation_rate` | `try_divide(SUM(cancelled_count)*1.0, SUM(flight_count))` | |
+| `on_time_dep_pct` | `1 - try_divide(SUM(dep_del15_count)*1.0, SUM(completed_count))` | Denominated by completed flights, not total — cancelled flights have no delay outcome to be on-time or not |
+| `on_time_arr_pct` | `1 - try_divide(SUM(arr_del15_count)*1.0, SUM(completed_count))` | Same reasoning as above |
+| `on_time_arr_score` | `try_divide(SUM(completed_count) - SUM(arr_del15_count) + 1000*0.800902533648825, SUM(completed_count)+1000)` | Bayesian-shrunk version of `on_time_arr_pct`: pulls low-volume routes toward the global average (prior weight = 1000 flights) so routes with a handful of flights can't dominate "best/worst route" rankings with meaningless 0%/100% values. **Limitation:** the prior (0.8009) is a fixed global constant baked in at creation time — it does not recompute per carrier. When filtered to a single carrier, low-volume routes shrink toward the *global* average rather than that carrier's own baseline, which can over- or under-state carrier-specific route performance. Treat carrier-filtered views of this measure as directional only; the unfiltered, all-carrier view is the reliable one. |
+| `avg_dep_delay_min` | `try_divide(SUM(avg_dep_delay_min * completed_count), SUM(completed_count))` | Flight-weighted average — reconstructs the true per-flight mean from a source table where this field is already a row-level average; a plain `AVG()` here would silently average the averages |
+| `avg_arr_delay_min` | `try_divide(SUM(avg_arr_delay_min * completed_count), SUM(completed_count))` | Same weighting logic |
+| `avg_taxi_out_min` | `try_divide(SUM(avg_taxi_out_min * completed_count), SUM(completed_count))` | Same weighting logic |
+| `avg_taxi_in_min` | `try_divide(SUM(avg_taxi_in_min * completed_count), SUM(completed_count))` | Same weighting logic |
+| `avg_distance_mi` | `try_divide(SUM(total_distance_mi), SUM(completed_count))` | Recovers the true point-to-point route distance. **Caution:** `total_distance_mi` in the source table is a per-row sum, correct at its native daily grain — rolling it up with a plain `SUM()` at route grain conflates distance with flight volume (a high-traffic short route can out-sum a genuinely long low-traffic one). Always divide by `completed_count` when aggregating beyond native grain. |
+| `total_distance_mi` | `SUM(total_distance_mi)` | Raw sum, retained for reference only; do not use for per-route distance — see `avg_distance_mi` |
+| `distinct_routes` | `COUNT(DISTINCT route)` | |
+| `carrier_delay_min`, `weather_delay_min`, `nas_delay_min`, `security_delay_min`, `late_aircraft_delay_min` | `SUM(...)` | Already row-level sums in the source table; safe to sum further with no weighting needed |
+
+### Known limitations
+
+- **`on_time_arr_score` carrier-filter bias** — see measure note above.
+- **`try_divide()` guards throughout** — fine-grained slices (e.g. route × carrier × month) can have `completed_count = 0` when every scheduled flight in that bucket was cancelled; a plain `/` would throw `DIVIDE_BY_ZERO` under Spark's ANSI mode. `try_divide()` returns `NULL` instead, which is the correct semantic — an undefined rate, not a zero rate.
+- **No geographic route visualization** — an origin→destination map would need airport latitude/longitude, which `dim_airport` does not contain. Deferred; would require sourcing and joining an external airport-coordinates reference dataset.

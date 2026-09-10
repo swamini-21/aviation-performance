@@ -253,6 +253,63 @@ backfill batch boundaries). Both aggregate tables reconcile exactly
 against `gold.fct_flights` on flight counts, cancellations, diversions,
 and delay-cause minute sums.
 
+## Phase 4 — AI/BI Dashboards
+
+Three published dashboard pages consuming a Unity Catalog **Metric View**
+(`gold.mv_carrier_route_performance`) built on top of
+`agg_daily_carrier_route_performance`, rather than wiring dashboard tiles
+directly to Gold tables. See `docs/data_dictionary_gold.md` for the full
+measure/dimension reference.
+
+**Why a Metric View:** defining KPIs (on-time %, cancellation rate, etc.)
+once in a governed semantic layer means the dashboard and any future
+Genie space read identical definitions — they can't silently drift apart
+the way they could if each dashboard tile and each Genie query
+re-implemented the same aggregation logic independently.
+
+### Pages
+
+1. **On-Time Performance Overview** — KPI counters (Total Flights, On-Time
+   Departure %, On-Time Arrival %, Cancellation Rate, Avg Departure Delay,
+   Diverted Flights), monthly on-time trend, cancellation rate trend,
+   delay-cause breakdown, and an on-time % heatmap by month × year.
+   Global filters: Year, Quarter, Month.
+2. **Carrier Comparison** — ranked bar charts (on-time % top 10,
+   cancellation rate all carriers), a flight-volume-vs-on-time-%
+   scatter plot, and a sortable full-carrier stats table. No carrier
+   filter by design — every visual compares carriers against each
+   other, so filtering to a single carrier would collapse the comparison
+   the page exists to show.
+3. **Route Analysis** — busiest routes (top 10), best/worst on-time
+   routes (top 10 each, via the shrinkage measure below), a
+   distance-vs-delay scatter, and a sortable route stats table.
+   Page-scoped Carrier filter (does not affect pages 1-2).
+
+### Design decisions
+
+- **OH code reuse resurfaces in the semantic layer.** The Metric View
+  re-applies the same time-bounded join to `dim_carrier` established in
+  Gold, exposing a `carrier_name` dimension so Carrier Comparison
+  rankings don't merge Comair and PSA Airlines under one `OH` bucket.
+- **Small-sample route rankings.** An early version of the "best/worst
+  on-time routes" charts surfaced routes with as few as 2-3 total
+  flights, producing meaningless 0%/100% extremes. Rather than a hard
+  volume cutoff, a Bayesian-shrunk measure (`on_time_arr_score`) pulls
+  low-volume routes toward the global average proportionally to sample
+  size — see data dictionary for the formula and its carrier-filter
+  limitation.
+- **Rollup bugs caught during dashboard build.** Two Gold-layer fields
+  (`avg_*_min`, `total_distance_mi`) are correct at their native daily
+  grain but produce wrong results if naively re-aggregated further
+  (average-of-averages, and distance-conflated-with-volume,
+  respectively). Both required flight-weighted formulas in the Metric
+  View.
+- **Platform constraint.** Widget-level dashboard filters can only
+  reference Metric View dimensions, not measures — a `HAVING`-style
+  volume threshold isn't expressible through the no-code filter UI.
+  Worked around with the shrinkage measure above instead of a separate
+  filtered SQL dataset.
+
 ## Known limitations
 
 Historical data covers only 2004–2008, not the full 1987–2008 available in the built-in dataset — scoped down to fit Free Edition's compute/storage quota. An intentional, documented gap rather than a continuous 1987–2026 timeline.
@@ -275,13 +332,19 @@ Carrier codes are not stable identifiers across 22 years — codes are reused an
 - 17 airport records in `dim_airport` are manually curated, not
   pipeline-derived — sourced from external research rather than BTS data,
   since these airports don't appear in the 2009+ source at all.
+  No geographic route map — `dim_airport` lacks latitude/longitude;
+  deferred to a future enhancement.
+- `on_time_arr_score` uses a fixed global-average prior; carrier-filtered
+  views of the best/worst route charts should be treated as directional
+  only (see data dictionary).
 
 ## Roadmap
 
 - [x] **Phase 1 - Data Collection: Bronze** ingestion for both sources, verified and deduplicated ✓
 - [ ] **Phase 2 - Silver**: Schema conformance, unified 146.7M-row table, two-tier data quality ✓
 - [ ] **Phase 3 - Gold:** Aggregated, dashboard-ready tables ✓
-- [ ] **Phase 4 - AI/BI Dashboard:** Visual analytics on Gold tables
+- [ ] **Phase 4 — AI/BI Dashboards:** On-Time Overview, Carrier
+      Comparison, and Route Analysis pages on a Unity Catalog Metric View
 - [ ] **Phase 5 - Genie:** Natural-language querying over the Gold layer
 - [ ] Extend toward a fuller DE stack (Airflow orchestration, dbt transformations) as a stretch goal
 
@@ -296,7 +359,8 @@ aviation-performance/
 │   ├── 02_silver_profiling.ipynb
 │   ├── 03_silver_flights.ipynb
 │   ├── 04_silver_dq_investigation.ipynb
-|   └── 05_gold_flights.ipynb
+|   ├── 05_gold_flights.ipynb
+|   └── 06_metric_view.ipynb
 ├── scripts/
 │   └── download_bts_ontime.py
 └── docs/
