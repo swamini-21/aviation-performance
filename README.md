@@ -38,13 +38,13 @@ airline_analytics (catalog)
 │ ├── flights (146,715,805 rows, conformed 2004-2026)
 │ └── flights_quarantine (hard-failure rejects - empty by design)
 └── gold
-├── fct_flights (146,715,805 rows, flight grain)
-├── dim_date (8,401 rows)
-├── dim_carrier (29 rows, time-bounded)
-├── dim_airport (426 rows, role-playing dimension)
-├── agg_daily_carrier_route_performance (52,154,788 rows)
-├── agg_monthly_carrier_performance (4,421 rows)
-└── mv_carrier_route_performance (Unity Catalog Metric View)
+│ ├── fct_flights (146,715,805 rows, flight grain)
+│ ├── dim_date (8,401 rows)
+│ ├── dim_carrier (29 rows, time-bounded)
+│ ├── dim_airport (426 rows, role-playing dimension)
+│ ├── agg_daily_carrier_route_performance (52,154,788 rows)
+│ ├── agg_monthly_carrier_performance (4,421 rows)
+│ └── mv_carrier_route_performance (Unity Catalog Metric View)
 ```
 
 Two Bronze tables are kept deliberately separate, one per source, rather
