@@ -382,6 +382,16 @@ dashboard page: busiest routes and shrinkage-ranked routes (Route
 Analysis), distance-vs-delay pattern (Route Analysis), and delay-cause
 and cancellation-rate trends over time (On-Time Performance Overview).
 
+
+**Configuration exported for version control.** The full Genie Agent
+definition - data sources, column configs, General Instructions, and all
+10 Examples - is exported via `databricks genie get-space <space-id>
+--include-serialized-space` and committed as
+`genie/airline_flight_performance.geniespace.json`. Table and column
+descriptions are Unity Catalog metadata, not part of the Genie space
+definition itself, and are not captured in this file — they're documented
+in `docs/data_dictionary_gold.md` instead.
+
 ### Testing
 
 Genie was tested against 7 live questions, each chosen to probe
@@ -392,7 +402,7 @@ verbatim:
 |---|---|---|
 | 1 | Best/worst on-time routes | Applied the shrinkage formula exactly as specified, not a simplified version |
 | 2 | Longer flights vs. delay | Used `haul_length` over ad hoc `distance_mi` bucketing, after an instruction-tightening pass (see below) |
-| 3 | Cancellation rate by carrier, last year | Correctly included all flights in the denominator — did not over-apply the "exclude cancelled" rule from delay-average examples |
+| 3 | Cancellation rate by carrier, last year | Correctly included all flights in the denominator - did not over-apply the "exclude cancelled" rule from delay-average examples |
 | 4 | On-time % for a specific carrier, last 5 years | Time-bounded carrier join generalized to a carrier that was never affected by code reuse |
 | 5 | Busiest routes and their on-time % | Used the `route` convenience column directly |
 | 6 | Time of day with the most delays | Used `departure_time_block`, correctly ordered chronologically rather than alphabetically |

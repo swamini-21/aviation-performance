@@ -4,4 +4,4 @@ bundle:
 resources:
   genie_spaces:
     airline_flight_performance:
-      file_path: src/airline_flight_performance.geniespace.json
+      file_path: genie/airline_flight_performance.geniespace.json

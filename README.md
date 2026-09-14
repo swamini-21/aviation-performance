@@ -106,18 +106,20 @@ aviation-performance/
 ├── README.md
 ├── .gitignore
 ├── notebooks/
-│ ├── 01_bronze_ingestion.ipynb
-│ ├── 02_silver_profiling.ipynb
-│ ├── 03_silver_flights.ipynb
-│ ├── 04_silver_dq_investigation.ipynb
-│ ├── 05_gold_flights.ipynb
-│ └── 06_metric_view.ipynb
+│   ├── 01_bronze_ingestion.ipynb
+│   ├── 02_silver_profiling.ipynb
+│   ├── 03_silver_flights.ipynb
+│   ├── 04_silver_dq_investigation.ipynb
+│   ├── 05_gold_flights.ipynb
+│   └── 06_metric_view.ipynb
 ├── scripts/
-│ └── download_bts_ontime.py
+│   └── download_bts_ontime.py
+├── genie/
+│   └── airline_flight_performance.geniespace.json
 └── docs/
-├── data_dictionary.md
-├── data_dictionary_silver.md
-├── data_dictionary_gold.md
-└── design_decisions.md
+    ├── data_dictionary.md
+    ├── data_dictionary_silver.md
+    ├── data_dictionary_gold.md
+    └── design_decisions.md
 
 ```
